@@ -18,6 +18,7 @@
 // struct is packed to ensure no padding bytes are added by GCC.
 typedef struct __attribute__((__packed__))
 {
+  uint16_t syncWord;        // useful when using non framed transport layer
   bool extended;            // true if 29 bit ID, false if 11 bit
   uint32_t id;              // CAN frame ID
   uint8_t dlc;              // CAN frame data length code (0 - 8).

@@ -21,11 +21,13 @@ uint8_t calculateChecksum(CANFrame *pFrame)
 }
 
 /**
+ * @brief adds checksum and syncWord to packet. 
  * @param pFrame: Pointer to a CAN frame.
  * @note: Ensure all other data of frame is filled before calling fillChecksum().
 */
 void fillChecksum(CANFrame *pFrame)
 {
+    pFrame->syncWord = 0xA55A;                                              // set the sync word before summing
     pFrame->checksum = calculateChecksum(pFrame);                           // append the checksum to the packet
 }
 
