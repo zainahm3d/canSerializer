@@ -5,7 +5,7 @@
 
 #include "canSerializer.h"
 
-// Calcuates a checksum and sets syncWord
+// Calcuates a checksum
 uint8_t calculateChecksum(CANFrame *pFrame)
 {
     uint8_t computedChecksum = 0;                                           // will hold our checksum as we calculate
@@ -17,17 +17,18 @@ uint8_t calculateChecksum(CANFrame *pFrame)
       computedChecksum += *(bytePtr + i);                                   // dereference and sum each byte
     }
 
-    pFrame->syncWord = 0xA55A;                                              // set the sync word before sending
     return computedChecksum;
 }
 
 /**
+ * @brief adds checksum and syncWord to packet. 
  * @param pFrame: Pointer to a CAN frame.
  * @note: Ensure all other data of frame is filled before calling fillChecksum().
 */
 void fillChecksum(CANFrame *pFrame)
 {
     pFrame->checksum = calculateChecksum(pFrame);                           // append the checksum to the packet
+    pFrame->syncWord = 0xA55A;                                              // set the sync word before sending
 }
 
 /**
