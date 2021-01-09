@@ -27,8 +27,8 @@ uint8_t calculateChecksum(CANFrame *pFrame)
 */
 void fillChecksum(CANFrame *pFrame)
 {
+    pFrame->syncWord = 0xA55A;                                              // set the sync word before summing
     pFrame->checksum = calculateChecksum(pFrame);                           // append the checksum to the packet
-    pFrame->syncWord = 0xA55A;                                              // set the sync word before sending
 }
 
 /**
